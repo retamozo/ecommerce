@@ -23,7 +23,7 @@ const corsConfig = {
     }
   }
 }
-app.use(cors(corsConfig))
+// app.use(cors(corsConfig))
 app.use(express.json());
 router(app);
 app.use(logErrors);
