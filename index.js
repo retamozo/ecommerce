@@ -9,7 +9,7 @@ const {
 const expressDebug = require("express-debug")
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 // package.json dev
 // I can't run both web server and the debugger on the same port. They are separate servers
 // it looks like the debugger is a server built in into the nodejs runtime
