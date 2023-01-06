@@ -1,5 +1,7 @@
-const router = require("express").Router()
-const { faker } = require("@faker-js/faker")
+import { Router } from "express";
+import { faker } from "@faker-js/faker"
+
+const router = Router();
 
 const fakeCategory = () => ({
   id: faker.datatype.uuid(),
@@ -19,4 +21,4 @@ router.get('/:categoryId/products/:productId', (req, res) => {
   })
 })
 
-module.exports = router
+export default router;
