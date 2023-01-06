@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "outDir": "build",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "isolatedModules": true,
+    // these options must change after TS migration is completed
+    "noEmitOnError": false,
+    "noFallthroughCasesInSwitch": true,
+    "strict": false,
+    // End
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "noImplicitReturns": true,
+    "noUnusedLocals": false
+    // "paths": {
+    //   "@middlewares/*": ["middlewares/*"],
+    //   "@services": ["services/*"],
+    //   "@schemas": ["schemas/*"],
+    //   "@routes": ["routes/*"]
+    // }
+  },
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Recommended",
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "**/*.spec.ts"]
+}
