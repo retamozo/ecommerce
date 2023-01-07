@@ -120,7 +120,7 @@ web_modules/
 
 # dotenv environment variables file
 .env
-.env.test
+.env.development
 .env.production
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -149,6 +149,9 @@ dist
 
 # FuseBox cache
 .fusebox/
+
+# Postgres docker image volume
+src/postgres_data
 
 # DynamoDB Local files
 .dynamodb/
