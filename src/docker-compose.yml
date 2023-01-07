@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  postgres:
+    container_name: psql_database
+    image: postgres:13
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB}"
+      - "POSTGRES_USER=${PGUSER}"
+      - "POSTGRES_PASSWORD=${PGPASSWORD}"
+    ports:
+      - ${POSTGRES_PORTS}
+    volumes:
+      # The place where postgres persist data. Might change depending the kind of DB
+      - ./postgres_data:/var/lib/postgresql
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
+      - "PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}"
+    ports:
+      - ${PGADMIN_PORTS}
