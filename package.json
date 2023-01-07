@@ -21,7 +21,9 @@
     "@types/express-debug": "^1.1.33",
     "@types/express-handlebars": "^6.0.0",
     "@types/node": "^18.11.18",
+    "@types/pg": "^8.6.6",
     "cross-env": "^7.0.3",
+    "dotenv": "^16.0.3",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.1",
@@ -37,6 +39,7 @@
     "@hapi/boom": "^10.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "joi": "^17.7.0"
+    "joi": "^17.7.0",
+    "pg": "^8.8.0"
   }
 }

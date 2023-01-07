@@ -15,7 +15,10 @@
     "esModuleInterop": true,
     "baseUrl": "src",
     "noImplicitReturns": true,
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "paths": {
+      "pg": ["node_modules/pg"]
+    }
     // "paths": {
     //   "@middlewares/*": ["middlewares/*"],
     //   "@services": ["services/*"],
@@ -25,6 +28,6 @@
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.{js|ts}", "src/libs/postgres.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
