@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "outDir": "build",
+    "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
     "isolatedModules": true,
@@ -13,21 +13,21 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "baseUrl": "src",
     "noImplicitReturns": true,
     "noUnusedLocals": false,
+    "baseUrl": "src",
     "paths": {
-      "pg": ["node_modules/pg"]
+      // "@config": ["config.ts"]
+      // "@middlewares/*": ["middlewares/*"]
+      // "@services": ["services/*"],
+      // "@schemas": ["schemas/*"],
+      // "@routes": ["routes/*"]
     }
     // "paths": {
-    //   "@middlewares/*": ["middlewares/*"],
-    //   "@services": ["services/*"],
-    //   "@schemas": ["schemas/*"],
-    //   "@routes": ["routes/*"]
     // }
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",
-  "include": ["src/**/*.{js|ts}", "src/libs/postgres.ts"],
+  "include": ["./src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

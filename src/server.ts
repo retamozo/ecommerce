@@ -1,4 +1,4 @@
-import config from "../config"
+import config from "./config"
 import cors, { CorsOptions } from "cors";
 import express from "express";
 import expressDebug from "express-debug";
@@ -37,3 +37,7 @@ app.use(expressDebug);
 app.listen(PORT, () => {
   console.log("Mi port" + PORT);
 });
+
+app.on("error", () => {
+  console.log("config", config);
+})
