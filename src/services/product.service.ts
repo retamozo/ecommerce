@@ -1,20 +1,17 @@
 import { faker } from "@faker-js/faker";
 import { notFound, conflict } from "@hapi/boom";
 import { TProduct } from "../types/product";
-import { pool as poolConnection } from "../libs/postgres"
-import { Pool } from "pg";
+import sequalize from "../libs/sequalize"
 
 const sleeper = (ms = 2000) => new Promise((res) => setTimeout(res, ms));
 
 export class ProductsService {
   products: TProduct[];
-  pool: Pool
 
   constructor() {
     this.products = [];
     this.generate();
-    this.pool = poolConnection
-    this.pool.on("error", (err) => console.error(err))
+
   }
 
   generate(): void {
@@ -40,8 +37,8 @@ export class ProductsService {
 
   async find() {
     const q = "SELECT * FROM products"
-    const res = await this.pool.query(q)
-    return res.rows
+    const [data, metadata] = await sequalize.query(q)
+    return { data, metadata }
   }
 
   async findOne(id) {
