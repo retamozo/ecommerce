@@ -1,3 +1,6 @@
+import { conflict } from "@hapi/boom";
+import { ValidationError } from "sequelize";
+
 export const logErrors = (error, req, res, next) => {
   next(error);
 };
@@ -17,3 +20,9 @@ export const boomErrorHandler = (error, req, res, next) => {
   next(error);
 };
 
+export const ormError = (error, req, res, next) => {
+  if (error instanceof ValidationError) {
+    throw conflict(error.errors[0].message)
+  }
+  next(error)
+}

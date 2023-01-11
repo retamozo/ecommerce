@@ -1,9 +1,14 @@
-import config from "./config"
+import config from "@config";
 import cors, { CorsOptions } from "cors";
 import express from "express";
 import expressDebug from "express-debug";
-import { logErrors, boomErrorHandler, errorHandler } from "./middlewares/error.handler";
-import apiRouter from "./routes"
+import {
+  logErrors,
+  boomErrorHandler,
+  errorHandler,
+  ormError,
+} from "@middlewares/error.handler";
+import apiRouter from "@api-router";
 
 const app = express();
 const PORT = config.port;
@@ -29,15 +34,21 @@ const corsConfig: CorsOptions = {
 // app.use(cors(corsConfig)); FIX THIS. Cors is blocking every connection even though whitelist is up
 app.use(express.json());
 apiRouter(app);
+
+//Error handling
 app.use(logErrors);
+app.use(ormError)
 app.use(boomErrorHandler);
 app.use(errorHandler);
+
+// logging
 app.use(expressDebug);
 
 app.listen(PORT, () => {
   console.log("Mi port" + PORT);
+  console.log({ config });
 });
 
 app.on("error", () => {
   console.log("config", config);
-})
+});

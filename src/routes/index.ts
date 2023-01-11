@@ -1,5 +1,7 @@
-import productRouter from "./products.router";
-import categoriesRouter from "./categories.router";
+import productRouter from "@routes/products.router";
+import categoriesRouter from "@routes/categories.router";
+import usersRouter from "@routes/users.router";
+
 import { Router } from "express";
 
 const router = (app) => {
@@ -8,6 +10,7 @@ const router = (app) => {
   app.use("/api/v1", router);
   router.use("/products", productRouter);
   router.use("/categories", categoriesRouter);
+  router.use("/users", usersRouter)
 };
 
 export default router;

@@ -1,21 +1,33 @@
-import { parse } from "pg-connection-string";
 import dotenv from "dotenv"
 
-dotenv.config({ encoding: "latin1" })
+dotenv.config()
 
 // pools will connect through env vars and parse automatically
 // https://github.com/brianc/node-postgres/tree/master/packages/pg-connection-string
-const connectionString = parse('postgres://PGUSER:PGPASSWORD@PGHOST:PGPORT/PGDATABASE').client_encoding
+// TODO: figure out why this refuses to work. Output is "undefined"
+// const connectionString = parse('postgres://PGUSER:PGPASSWORD@PGHOST:PGPORT/PGDATABASE').client_encoding
+const {
+  PGUSER,
+  PGPASSWORD,
+  PGHOST,
+  PGPORT,
+  PGDATABASE,
+  NODE_ENV,
+  PORT
+} = process.env
+
+const database = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`
 
 const config = {
-  env: process.env.NODE_ENV || "DEV",
-  port: process.env.PORT || 3000,
-  dbUser: process.env.PGUSER,
-  dbPassword: process.env.PGPASSWORD,
-  dbHost: process.env.PGHOST,
-  dbName: process.env.PGDATABASE,
-  dbPort: process.env.PGPORT,
-  connectionURIString: connectionString,
+  env: NODE_ENV || "DEV",
+  port: PORT || 3000,
+  dbUser: PGUSER,
+  dbPassword: PGPASSWORD,
+  dbHost: PGHOST,
+  dbName: PGDATABASE,
+  dbPort: PGPORT,
+  connectionURIString: database
 }
+
 
 export default config

@@ -1,7 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { notFound, conflict } from "@hapi/boom";
-import { TProduct } from "../types/product";
-import sequalize from "../libs/sequalize"
+import { TProduct } from "@custom-types/product";
+import sequelize from "@libs/sequelize"
+
+const { models } = sequelize
 
 const sleeper = (ms = 2000) => new Promise((res) => setTimeout(res, ms));
 
@@ -36,9 +38,7 @@ export class ProductsService {
   }
 
   async find() {
-    const q = "SELECT * FROM products"
-    const [data, metadata] = await sequalize.query(q)
-    return { data, metadata }
+    return await models.Products.findAll();
   }
 
   async findOne(id) {
