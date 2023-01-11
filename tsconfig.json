@@ -6,9 +6,9 @@
     "moduleResolution": "node",
     "isolatedModules": true,
     // these options must change after TS migration is completed
-    "noEmitOnError": false,
-    "noFallthroughCasesInSwitch": true,
-    "strict": false,
+    // "noEmitOnError": false,
+    // "noFallthroughCasesInSwitch": true,
+    // "strict": false,
     // End
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
@@ -17,17 +17,20 @@
     "noUnusedLocals": false,
     "baseUrl": "src",
     "paths": {
-      // "@config": ["config.ts"]
-      // "@middlewares/*": ["middlewares/*"]
-      // "@services": ["services/*"],
-      // "@schemas": ["schemas/*"],
-      // "@routes": ["routes/*"]
+      "@config": ["config.ts"],
+      "@api-router": ["routes/index.ts"],
+      "@db-model-root": ["db/models/index.ts"],
+      "@middlewares/*": ["middlewares/*"],
+      "@services/*": ["services/*"],
+      "@schemas/*": ["schemas/*"],
+      "@routes/*": ["routes/*"],
+      "@libs/*": ["libs/*"],
+      "@custom-types/*": ["types/*"],
+      "@db-models/*": ["db/models/*"]
     }
-    // "paths": {
-    // }
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",
-  "include": ["./src/**/*"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
