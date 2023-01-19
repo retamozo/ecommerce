@@ -1,6 +1,6 @@
 import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey, Sequelize } from 'sequelize';
 
-const TABLE_NAME = "users"
+export const TABLE_NAME = "users"
 
 export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
   declare id: number;
@@ -43,5 +43,10 @@ export const UserSchema = {
     type: DataTypes.DATE,
     field: 'create_at',
     defaultValue: DataTypes.NOW
+  },
+  role: {
+    allowNull: false,
+    type: DataTypes.STRING,
+    default: "customer"
   }
 }

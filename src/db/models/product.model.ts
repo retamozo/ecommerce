@@ -1,6 +1,6 @@
 import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey, Sequelize } from 'sequelize';
 
-const TABLE_NAME = "products"
+export const TABLE_NAME = "products"
 
 export class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
   declare id: number;
