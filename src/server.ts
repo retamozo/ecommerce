@@ -42,13 +42,11 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 // logging
-app.use(expressDebug);
+// app.use(expressDebug);
 
 app.listen(PORT, () => {
   console.log("Mi port" + PORT);
-  console.log({ config });
 });
 
 app.on("error", () => {
-  console.log("config", config);
 });

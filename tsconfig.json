@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es6",
     "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -8,8 +8,8 @@
     // these options must change after TS migration is completed
     // "noEmitOnError": false,
     // "noFallthroughCasesInSwitch": true,
-    // "strict": false,
     // End
+    "strict": false, // TODO change this
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -17,7 +17,7 @@
     "noUnusedLocals": false,
     "baseUrl": "src",
     "paths": {
-      "@config": ["config.ts"],
+      "@config": ["config/index.ts"],
       "@api-router": ["routes/index.ts"],
       "@db-model-root": ["db/models/index.ts"],
       "@middlewares/*": ["middlewares/*"],
@@ -29,7 +29,6 @@
       "@db-models/*": ["db/models/*"]
     }
   },
-  "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Recommended",
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
