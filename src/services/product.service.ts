@@ -38,7 +38,8 @@ export class ProductsService {
   }
 
   async find() {
-    return await models.Products.findAll();
+    const res = await models.Product.findAll()
+    return res
   }
 
   async findOne(id) {
