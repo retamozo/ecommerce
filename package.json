@@ -4,6 +4,7 @@
   "description": "Simple chat",
   "main": "dist/server.js",
   "scripts": {
+    "service-template": "sh ./scripts/service_skeleton.sh",
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
     "start": "node build/server.js",
     "lint": "eslint",
