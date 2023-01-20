@@ -1,24 +1,37 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey, Sequelize } from 'sequelize';
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  ForeignKey,
+  Sequelize,
+} from "sequelize";
 
-export const TABLE_NAME = "users"
+export const USER_TABLE_NAME = "users";
 
-export class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
+export class User extends Model<
+  InferAttributes<User>,
+  InferCreationAttributes<User>
+> {
   declare id: number;
-  declare email: string
-  declare password: string
-  declare createdAt: string | null
+  declare email: string;
+  declare password: string;
+  declare createdAt: string | null;
 
-  static associate() {
-    // associate
+  static associate(models) {
+    this.hasOne(models.Customer, {
+      as: "customer",
+      foreignKey: "userId",
+    });
   }
 
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: TABLE_NAME,
+      tableName: USER_TABLE_NAME,
       modelName: "User",
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
@@ -27,7 +40,7 @@ export const UserSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   email: {
     allowNull: false,
@@ -36,17 +49,17 @@ export const UserSchema = {
   },
   password: {
     allowNull: false,
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
   },
   createdAt: {
     allowNull: false,
     type: DataTypes.DATE,
-    field: 'create_at',
-    defaultValue: DataTypes.NOW
+    field: "create_at",
+    defaultValue: DataTypes.NOW,
   },
   role: {
-    allowNull: false,
+    allowNull: true,
     type: DataTypes.STRING,
-    default: "customer"
-  }
-}
+    default: "customer",
+  },
+};

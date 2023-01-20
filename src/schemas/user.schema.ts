@@ -2,7 +2,7 @@ import Joi from "joi";
 
 const name = Joi.string().min(3).max(15);
 const email = Joi.string().email()
-const id = Joi.string()
+const id = Joi.number().integer()
 const password = Joi.string().min(8)
 const role = Joi.string().min(5)
 

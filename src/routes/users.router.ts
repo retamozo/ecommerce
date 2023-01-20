@@ -30,9 +30,13 @@ router.get("/:id", validateGetUser, async (req, res, next) => {
   }
 });
 
-router.get("/", async (req, res) => {
-  const prods = await userService.find();
-  res.json(prods);
+router.get("/", async (req, res, next) => {
+  try {
+    const prods = await userService.find();
+    res.json(prods);
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.post("/", validateCreateUser, async (req, res, next) => {
@@ -58,15 +62,13 @@ router.patch("/:id", validatePartialUserUpdate, async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", validateGetUser, async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedResponse = await userService.delete(id);
     res.json(deletedResponse);
   } catch (e) {
-    res.status(404).json({
-      message: e.message,
-    });
+    next(e);
   }
 });
 
