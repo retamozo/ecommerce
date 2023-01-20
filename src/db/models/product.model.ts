@@ -1,14 +1,29 @@
-import { Model, InferAttributes, InferCreationAttributes, DataTypes, ForeignKey, Sequelize } from 'sequelize';
+import {
+  Model,
+  InferAttributes,
+  InferCreationAttributes,
+  DataTypes,
+  ForeignKey,
+  Sequelize,
+} from "sequelize";
+import { CATEGORY_TABLE_NAME } from "./category.model";
 
-export const TABLE_NAME = "products"
+export const TABLE_NAME = "products";
 
-export class Product extends Model<InferAttributes<Product>, InferCreationAttributes<Product>> {
+export class Product extends Model<
+  InferAttributes<Product>,
+  InferCreationAttributes<Product>
+> {
   declare id: number;
   declare name: string;
-  declare price: string
+  declare price: string;
+  declare description: string;
+  declare categoryId: string;
 
-  static associate() {
-    // associate
+  static associate(models: Sequelize["models"]) {
+    this.belongsTo(models.Category, {
+      as: "category",
+    });
   }
 
   static config(sequelize: Sequelize) {
@@ -16,8 +31,8 @@ export class Product extends Model<InferAttributes<Product>, InferCreationAttrib
       sequelize,
       tableName: TABLE_NAME,
       modelName: "Product",
-      timestamps: false
-    }
+      timestamps: false,
+    };
   }
 }
 
@@ -26,7 +41,7 @@ export const ProductSchema = {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: DataTypes.INTEGER
+    type: DataTypes.INTEGER,
   },
   name: {
     allowNull: false,
@@ -34,7 +49,27 @@ export const ProductSchema = {
   },
   price: {
     allowNull: false,
-    type: DataTypes.INTEGER
-  }
-}
-
+    type: DataTypes.INTEGER,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: false,
+  },
+  createdAt: {
+    allowNull: false,
+    field: "created_at",
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  categoryId: {
+    field: "category_id",
+    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: CATEGORY_TABLE_NAME,
+      key: "id",
+    },
+    onUpdate: "CASCADE",
+    onDelete: "SET NULL",
+  },
+};

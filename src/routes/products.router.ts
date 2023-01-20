@@ -18,7 +18,6 @@ const validatePartialUpdate = [
 const productService = new ProductsService();
 
 router.get("/", async (req, res) => {
-  // const { limit = 10, offset } = req.query;
   const prods = await productService.find();
   res.json(prods);
 });
