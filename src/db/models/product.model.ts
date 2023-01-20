@@ -3,7 +3,6 @@ import {
   InferAttributes,
   InferCreationAttributes,
   DataTypes,
-  ForeignKey,
   Sequelize,
 } from "sequelize";
 import { CATEGORY_TABLE_NAME } from "./category.model";

@@ -8,7 +8,7 @@ import {
 } from "sequelize";
 import { USER_TABLE_NAME } from "./user.model";
 
-export const CUSTOMERS_TABLE_NAME = "customers";
+export const CUSTOMERS_TABLE = "customers";
 
 export class Customer extends Model<
   InferAttributes<Customer>,
@@ -27,12 +27,16 @@ export class Customer extends Model<
     this.belongsTo(models.User, {
       as: "user",
     });
+    this.hasMany(models.Order, {
+      as: "orders",
+      foreignKey: "customerId"
+    })
   }
 
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: CUSTOMERS_TABLE_NAME,
+      tableName: CUSTOMERS_TABLE,
       modelName: "Customer",
       timestamps: false,
     };
