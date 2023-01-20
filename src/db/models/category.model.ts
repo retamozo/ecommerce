@@ -34,7 +34,7 @@ export class Category extends Model<InferAttributes<Category>, InferCreationAttr
   static associate(models: Sequelize["models"]) {
     this.hasMany(models.Product, {
       as: "products",
-      foreignKey: "category_id"
+      foreignKey: "categoryId"
     })
   }
 

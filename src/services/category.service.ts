@@ -8,22 +8,22 @@ export class CategoryService {
 
   async create(body) {
     try {
-      const newCustomer = await models.Category.create(body);
-      return newCustomer;
+      const cat = await models.Category.create(body);
+      return cat;
     } catch (e) {
       throw conflict(e);
     }
   }
 
   async find() {
-    const rta = await models.Category.findAll({
-      include: ["products"],
-    });
+    const rta = await models.Category.findAll();
     return rta;
   }
 
   async findOne(id: string) {
-    const cat = await models.Category.findByPk(id);
+    const cat = await models.Category.findByPk(id, {
+      include: ["products"]
+    });
     if (!cat) {
       throw notFound("Category not found");
     }
