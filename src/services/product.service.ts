@@ -17,38 +17,26 @@ export class ProductsService {
   }
 
   generate(): void {
-    const createFakeProduct = () => ({
-      id: faker.datatype.uuid(),
-      name: faker.commerce.productName(),
-      price: Number(faker.commerce.price()),
-      isProhibited: faker.datatype.boolean(),
-      image: faker.image.imageUrl(),
-    });
 
-    this.products = Array.from<TProduct>({ length: 4 }).map(createFakeProduct);
   }
 
   async create(data) {
-    const brandNewProduct = {
-      id: faker.datatype.uuid(),
-      ...data,
-    };
-    this.products.push(brandNewProduct);
-    return brandNewProduct;
+    const product = await models.Product.create(data)
+    return product
   }
 
   async find() {
-    const res = await models.Product.findAll()
+    const res = await models.Product.findAll({
+      include: ["category"]
+    })
     return res
   }
 
   async findOne(id) {
-    await sleeper(3000);
-    const product = this.products.find((prod) => prod.id === id);
-    if (!product) throw notFound("Couldn't find product.");
-    if (product.isProhibited)
-      throw conflict("Not elegible to see this product.");
-    return product;
+    const res = await models.Product.findByPk(id, {
+      include: ["category"]
+    })
+    return res
   }
 
   async update(id, changes) {
