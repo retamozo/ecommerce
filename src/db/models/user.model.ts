@@ -7,7 +7,7 @@ import {
   Sequelize,
 } from "sequelize";
 
-export const USER_TABLE_NAME = "users";
+export const USER_TABLE = "users";
 
 export class User extends Model<
   InferAttributes<User>,
@@ -28,7 +28,7 @@ export class User extends Model<
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: USER_TABLE_NAME,
+      tableName: USER_TABLE,
       modelName: "User",
       timestamps: false,
     };

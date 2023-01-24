@@ -6,7 +6,7 @@ import {
   DataTypes,
   Sequelize,
 } from "sequelize";
-import { USER_TABLE_NAME } from "./user.model";
+import { USER_TABLE } from "./user.model";
 
 export const CUSTOMERS_TABLE = "customers";
 
@@ -75,7 +75,7 @@ export const CustomerSchema = {
     type: DataTypes.INTEGER,
     unique: true,
     references: {
-      model: USER_TABLE_NAME,
+      model: USER_TABLE,
       key: "id",
     },
     onUpdate: "CASCADE",

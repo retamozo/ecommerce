@@ -7,7 +7,7 @@ import {
 } from "sequelize";
 import { CATEGORY_TABLE_NAME } from "./category.model";
 
-export const TABLE_NAME = "products";
+export const PRODUCTS_TABLE = "products";
 
 export class Product extends Model<
   InferAttributes<Product>,
@@ -28,7 +28,7 @@ export class Product extends Model<
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: TABLE_NAME,
+      tableName: PRODUCTS_TABLE,
       modelName: "Product",
       timestamps: false,
     };

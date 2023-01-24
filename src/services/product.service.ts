@@ -1,6 +1,5 @@
-import { faker } from "@faker-js/faker";
 import { notFound, conflict } from "@hapi/boom";
-import { TProduct } from "@custom-types/product";
+import { TProduct } from "@custom-types/models/product";
 import sequelize from "@libs/sequelize"
 
 const { models } = sequelize
