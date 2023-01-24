@@ -19,6 +19,12 @@ export class Order extends Model<
     this.belongsTo(models.Customer, {
       as: "customer",
     });
+    this.belongsToMany(models.Product, {
+      as: "items",
+      through: models.OrderProduct,
+      foreignKey: "orderId",
+      otherKey: "productId"
+    })
   }
 
   static config(sequelize: Sequelize) {

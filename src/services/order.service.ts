@@ -1,14 +1,13 @@
-
 import { notFound, conflict } from "@hapi/boom";
-import sequelize from "@libs/sequelize"
+import sequelize from "@libs/sequelize";
 
-const { models } = sequelize
+const { models } = sequelize;
 
 export class OrderService {
-  constructor() { }
+  constructor() {}
 
   async create(payload) {
-    const order = await models.Order.create(payload)
+    const order = await models.Order.create(payload);
     return order;
   }
 
@@ -17,7 +16,21 @@ export class OrderService {
   }
 
   async findOne(id: string) {
-    return;
+    const order = models.Order.findByPk(id, {
+      include: [
+        {
+          association: "customer",
+          include: ["user"],
+        },
+        "items",
+      ],
+    });
+    return order;
+  }
+
+  async addItem(payload) {
+    const order = await models.OrderProduct.create(payload);
+    return order;
   }
 
   async update(id: string, changes) {
