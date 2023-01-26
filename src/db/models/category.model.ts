@@ -1,6 +1,7 @@
 import { Model, DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Sequelize } from "sequelize";
 
 export const CATEGORY_TABLE_NAME = "categories";
+export const CATEGORY_MODEL_NAME = "Category"
 
 export const CategorySchema = {
   id: {
@@ -42,7 +43,7 @@ export class Category extends Model<InferAttributes<Category>, InferCreationAttr
     return {
       sequelize,
       tableName: CATEGORY_TABLE_NAME,
-      modelName: "Category",
+      modelName: CATEGORY_MODEL_NAME,
       timestamps: false
     }
   }
