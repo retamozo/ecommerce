@@ -8,6 +8,7 @@ import {
 import { CATEGORY_TABLE_NAME } from "./category.model";
 
 export const PRODUCTS_TABLE = "products";
+export const PRODUCTS_MODEL_NAME = "Product";
 
 export class Product extends Model<
   InferAttributes<Product>,
@@ -29,7 +30,7 @@ export class Product extends Model<
     return {
       sequelize,
       tableName: PRODUCTS_TABLE,
-      modelName: "Product",
+      modelName: PRODUCTS_MODEL_NAME,
       timestamps: false,
     };
   }

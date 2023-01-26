@@ -7,13 +7,13 @@ import {
 } from "sequelize";
 import { PRODUCTS_TABLE } from "./product.model";
 import { USER_TABLE } from "./user.model";
-import { OrderProductSchema } from "@custom-types/models/order-product"
+import { TOrderProductSchema } from "@custom-types/models/order-product"
 
-export const ORDER_PRODUCT_TABLE = "order_product";
+export const ORDERS_PRODUCTS_TABLE = "orders_products";
 
-export const ORDER_PRODUCT_MODEL = "OrderProduct"
+export const ORDERS_PRODUCTS_MODEL = "OrderProduct"
 
-export const orderProductSchema: OrderProductSchema = {
+export const OrderProductSchema: TOrderProductSchema = {
   id: {
     allowNull: false,
     autoIncrement: true,
@@ -66,8 +66,8 @@ export class OrderProduct extends Model<
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: ORDER_PRODUCT_TABLE,
-      modelName: ORDER_PRODUCT_MODEL,
+      tableName: ORDERS_PRODUCTS_TABLE,
+      modelName: ORDERS_PRODUCTS_MODEL,
       timestamps: false,
     };
   }

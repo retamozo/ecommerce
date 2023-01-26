@@ -4,29 +4,22 @@ import sequelize from "@libs/sequelize"
 
 const { models } = sequelize
 
-const sleeper = (ms = 2000) => new Promise((res) => setTimeout(res, ms));
-
 export class ProductsService {
   products: TProduct[];
 
-  constructor() {
-    this.products = [];
-    this.generate();
-
-  }
-
-  generate(): void {
-
-  }
+  constructor() {}
 
   async create(data) {
     const product = await models.Product.create(data)
     return product
   }
 
-  async find() {
+  async find(query) {
+    const { limit = 10, offset = 0 } = query || {}
     const res = await models.Product.findAll({
-      include: ["category"]
+      include: ["category"],
+      offset,
+      limit,
     })
     return res
   }

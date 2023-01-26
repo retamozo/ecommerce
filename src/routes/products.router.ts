@@ -1,12 +1,18 @@
-
 import express from "express";
 import { validatorHandler } from "../middlewares/validator.handler";
-import { createProductSchema, getProductSchema, updateProductSchema } from "../schemas/product.schema";
+import {
+  createProductSchema,
+  getProductSchema,
+  updateProductSchema,
+  queryProductSchema,
+} from "../schemas/product.schema";
 import { ProductsService } from "../services/product.service";
 
 const router = express.Router();
 
 const validateCreateProduct = validatorHandler(createProductSchema, "body");
+
+const validateGetProductQuery = validatorHandler(queryProductSchema, "params");
 
 const validateGetProduct = validatorHandler(getProductSchema, "params");
 
@@ -17,13 +23,13 @@ const validatePartialUpdate = [
 
 const productService = new ProductsService();
 
-router.get("/", async (req, res) => {
-  const prods = await productService.find();
-  res.json(prods);
-});
-
-router.get("/filter", (req, res) => {
-  res.send("filter");
+router.get("/", validateGetProductQuery, async (req, res, next) => {
+  try {
+    const products = await productService.find(req.query);
+    res.json({ length: products.length, products });
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.get("/:id", validateGetProduct, async (req, res, next) => {
@@ -35,13 +41,18 @@ router.get("/:id", validateGetProduct, async (req, res, next) => {
     next(e);
   }
 });
-router.post("/", validateCreateProduct, async (req, res) => {
-  const body = req.body;
-  const newProd = await productService.create(body);
-  return res.status(201).json({
-    message: "created",
-    data: newProd,
-  });
+
+router.post("/", validateCreateProduct, async (req, res, next) => {
+  try {
+    const body = req.body;
+    const newProd = await productService.create(body);
+    res.status(201).json({
+      message: "created",
+      data: newProd,
+    });
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.patch("/:id", validatePartialUpdate, async (req, res, next) => {

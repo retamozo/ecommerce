@@ -16,7 +16,6 @@ export const createOrderSchema = Joi.object({
 });
 
 export const addItemSchema = Joi.object({
-  orderId: orderId.required(),
   productId: productId.required(),
   amount: amount.required()
 })

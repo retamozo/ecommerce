@@ -27,10 +27,11 @@ router.post("/", validateCreateOrder, async (req, res, next) => {
   }
 });
 
-router.post("/add-item", validateAddItem, async (req, res, next) => {
+router.post("/:id/items", validateAddItem, async (req, res, next) => {
   try {
     const body = req.body;
-    const item = await orderService.addItem(body);
+    const { id: orderId } = req.params
+    const item = await orderService.addItem({ ...body, orderId });
     res.status(201).json({
       message: "created",
       item,
