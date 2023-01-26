@@ -1,4 +1,3 @@
-import { SchemaMap } from "joi";
 import {
   Model,
   InferAttributes,
@@ -20,7 +19,6 @@ export class Customer extends Model<
   declare phone: string;
   declare createdAt: string | null;
   declare userId: string;
-
 
   static associate(models) {
     // associate
