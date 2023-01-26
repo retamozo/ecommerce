@@ -6,10 +6,10 @@ services:
     image: postgres:13
     environment:
       - "POSTGRES_DB=${POSTGRES_DB}"
-      - "POSTGRES_USER=${PGUSER}"
-      - "POSTGRES_PASSWORD=${PGPASSWORD}"
+      - "POSTGRES_USER=${POSTGRES_USER}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
     ports:
-      - ${POSTGRES_PORTS}
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
     volumes:
       # The place where postgres persist data. Might change depending the kind of DB
       - ./postgres_data:/var/lib/postgresql
