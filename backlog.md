@@ -1,0 +1,1 @@
+- [ ] Enforce [type definitios](https://javascript.plainenglish.io/how-to-get-typescript-type-completion-by-defining-process-env-types-6a5869174f57) for env vars
