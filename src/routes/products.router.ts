@@ -1,80 +1,50 @@
-import express from "express";
-import { validatorHandler } from "../middlewares/validator.handler";
+import {
+  createCategoryController,
+  deleteProductController,
+  getAllCategoriesController,
+  getCategoryByIdController,
+  patchProductController
+} from '@controllers/product';
+import { FieldSource } from '@custom-types/schemas';
+import { Router } from 'express';
+import { validatorHandler } from '../middlewares/validator.handler';
 import {
   createProductSchema,
   getProductSchema,
   updateProductSchema,
+  queryProductSchema
+} from '@schemas/product.schema';
+
+const router = Router();
+
+const validateCreateProduct = validatorHandler(
+  createProductSchema,
+  FieldSource.Body
+);
+
+const validateGetProductQuery = validatorHandler(
   queryProductSchema,
-} from "../schemas/product.schema";
-import { ProductsService } from "../services/product.service";
+  FieldSource.Params
+);
 
-const router = express.Router();
-
-const validateCreateProduct = validatorHandler(createProductSchema, "body");
-
-const validateGetProductQuery = validatorHandler(queryProductSchema, "params");
-
-const validateGetProduct = validatorHandler(getProductSchema, "params");
+const validateGetProduct = validatorHandler(
+  getProductSchema,
+  FieldSource.Params
+);
 
 const validatePartialUpdate = [
-  validatorHandler(getProductSchema, "params"),
-  validatorHandler(updateProductSchema, "body"),
+  validatorHandler(getProductSchema, FieldSource.Params),
+  validatorHandler(updateProductSchema, FieldSource.Body)
 ];
 
-const productService = new ProductsService();
+router.get('/', validateGetProductQuery, getAllCategoriesController);
 
-router.get("/", validateGetProductQuery, async (req, res, next) => {
-  try {
-    const products = await productService.find(req.query);
-    res.json({ length: products.length, products });
-  } catch (e) {
-    next(e);
-  }
-});
+router.get('/:id', validateGetProduct, getCategoryByIdController);
 
-router.get("/:id", validateGetProduct, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await productService.findOne(id);
-    res.json(product);
-  } catch (e) {
-    next(e);
-  }
-});
+router.post('/', validateCreateProduct, createCategoryController);
 
-router.post("/", validateCreateProduct, async (req, res, next) => {
-  try {
-    const body = req.body;
-    const newProd = await productService.create(body);
-    res.status(201).json({
-      message: "created",
-      data: newProd,
-    });
-  } catch (e) {
-    next(e);
-  }
-});
+router.patch('/:id', validatePartialUpdate, patchProductController);
 
-router.patch("/:id", validatePartialUpdate, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const partialUpdatedProduct = await productService.update(id, req.body);
-    res.json(partialUpdatedProduct);
-  } catch (e) {
-    next(e);
-  }
-});
-
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deletedResponse = await productService.delete(id);
-    res.json(deletedResponse);
-  } catch (e) {
-    res.status(404).json({
-      message: e.message,
-    });
-  }
-});
+router.delete('/:id', deleteProductController);
 
 export default router;
