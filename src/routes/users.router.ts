@@ -1,75 +1,38 @@
-import express from "express";
+import { Router } from 'express';
 import {
   createUserSchema,
   getUserSchema,
-  updateUserSchema,
-} from "@schemas/user.schema";
-import { validatorHandler } from "@middlewares/validator.handler";
-import { UserService } from "@services/users.service";
+  updateUserSchema
+} from '@schemas/user.schema';
+import { validatorHandler } from '@middlewares/validator.handler';
+import { FieldSource } from '@custom-types/schemas';
+import {
+  getUserByIdController,
+  getAllUsersController,
+  createAllUsersController,
+  patchUserController,
+  deleteUserController
+} from '@controllers/user';
 
-const router = express.Router();
+const router = Router();
 
-const validateCreateUser = validatorHandler(createUserSchema, "body");
+const validateCreateUser = validatorHandler(createUserSchema, FieldSource.Body);
 
-const validateGetUser = validatorHandler(getUserSchema, "params");
+const validateGetUser = validatorHandler(getUserSchema, FieldSource.Params);
 
 const validatePartialUserUpdate = [
-  validatorHandler(getUserSchema, "params"),
-  validatorHandler(updateUserSchema, "body"),
+  validatorHandler(getUserSchema, FieldSource.Params),
+  validatorHandler(updateUserSchema, FieldSource.Body)
 ];
 
-const userService = new UserService();
+router.get('/:id', validateGetUser, getUserByIdController);
 
-router.get("/:id", validateGetUser, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const product = await userService.findOne(id);
-    res.json(product);
-  } catch (e) {
-    next(e);
-  }
-});
+router.get('/', getAllUsersController);
 
-router.get("/", async (req, res, next) => {
-  try {
-    const prods = await userService.find();
-    res.json(prods);
-  } catch (e) {
-    next(e);
-  }
-});
+router.post('/', validateCreateUser, createAllUsersController);
 
-router.post("/", validateCreateUser, async (req, res, next) => {
-  try {
-    const body = req.body;
-    const user = await userService.create(body);
-    res.status(201).json({
-      message: "created",
-      data: user,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
+router.patch('/:id', validatePartialUserUpdate, patchUserController);
 
-router.patch("/:id", validatePartialUserUpdate, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const partialUpdatedProduct = await userService.update(id, req.body);
-    res.json(partialUpdatedProduct);
-  } catch (e) {
-    next(e);
-  }
-});
-
-router.delete("/:id", validateGetUser, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const deletedResponse = await userService.delete(id);
-    res.json(deletedResponse);
-  } catch (e) {
-    next(e);
-  }
-});
+router.delete('/:id', validateGetUser, deleteUserController);
 
 export default router;
