@@ -1,24 +1,24 @@
 module.exports = {
   env: {
-    browser: true,
-    es2021: true,
+    node: true,
+    es2021: true
   },
   extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: 'module',
+    sourceType: 'module'
   },
   plugins: ['@typescript-eslint', 'import'],
   rules: {},
   settings: {
     'import/parsers': {
-      '@typescript-eslint/parser': ['.ts', '.tsx'],
+      '@typescript-eslint/parser': ['.ts', '.tsx']
     },
     'import/resolver': {
       typescript: {
-        alwaysTryTypes: true,
-      },
+        alwaysTryTypes: true
+      }
     },
     'import/order': [
       'error',
@@ -31,9 +31,9 @@ module.exports = {
           'external',
           'builtin',
           'object',
-          'type',
-        ],
-      },
-    ],
-  },
+          'type'
+        ]
+      }
+    ]
+  }
 };
