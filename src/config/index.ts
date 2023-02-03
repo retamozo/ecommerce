@@ -7,25 +7,25 @@ dotenv.config();
 // TODO: figure out why this refuses to work. Output is "undefined"
 // const connectionString = parse('postgres://PGUSER:PGPASSWORD@PGHOST:PGPORT/PGDATABASE').client_encoding
 const {
-  POSTGRES_USER,
-  POSTGRES_PASSWORD,
-  POSTGRES_HOST,
-  POSTGRES_PORT,
-  POSTGRES_DATABASE,
+  PGUSER,
+  PGPASSWORD,
+  PGHOST,
+  PGPORT,
+  PGDATABASE,
   NODE_ENV,
   PORT,
 } = process.env;
 
-const database = `postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DATABASE}`;
+const database = `postgres://${PGUSER}:${PGPASSWORD}@${PGHOST}:${PGPORT}/${PGDATABASE}`;
 
 const config = {
   env: NODE_ENV || "DEV",
-  port: PORT || 3001,
-  dbUser: POSTGRES_USER,
-  dbPassword: POSTGRES_PASSWORD,
-  dbHost: POSTGRES_HOST,
-  dbName: POSTGRES_DATABASE,
-  dbPort: POSTGRES_PORT,
+  port: PORT || 3000,
+  dbUser: PGUSER,
+  dbPassword: PGPASSWORD,
+  dbHost: PGHOST,
+  dbName: PGDATABASE,
+  dbPort: PGPORT,
   connectionURIString: database,
 };
 
