@@ -1,8 +1,8 @@
 import {
-  createCategoryController,
+  createProductController,
   deleteProductController,
-  getAllCategoriesController,
-  getCategoryByIdController,
+  getAllProductsController,
+  getProductByIdController,
   patchProductController
 } from '@controllers/product';
 import { FieldSource } from '@custom-types/schemas';
@@ -37,14 +37,14 @@ const validatePartialUpdate = [
   validatorHandler(updateProductSchema, FieldSource.Body)
 ];
 
-router.get('/', validateGetProductQuery, getAllCategoriesController);
+router.get('/', validateGetProductQuery, getAllProductsController);
 
-router.get('/:id', validateGetProduct, getCategoryByIdController);
+router.get('/:id', validateGetProduct, getProductByIdController);
 
-router.post('/', validateCreateProduct, createCategoryController);
+router.post('/', validateCreateProduct, createProductController);
 
 router.patch('/:id', validatePartialUpdate, patchProductController);
 
-router.delete('/:id', deleteProductController);
+router.delete('/:id', validateGetProduct, deleteProductController);
 
 export default router;

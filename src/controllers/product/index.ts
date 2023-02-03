@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from 'express';
 
 const productService = new ProductsService();
 
-export const getAllCategoriesController = async (
+export const getAllProductsController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -16,7 +16,7 @@ export const getAllCategoriesController = async (
   }
 };
 
-export const getCategoryByIdController = async (
+export const getProductByIdController = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -30,7 +30,7 @@ export const getCategoryByIdController = async (
   }
 };
 
-export const createCategoryController = async (
+export const createProductController = async (
   req: Request,
   res: Response,
   next: NextFunction
