@@ -25,7 +25,7 @@ const whitelist = [
 
 const corsConfig: CorsOptions = {
   origin: (origin, cb) => {
-    if (whitelist.includes(origin)) {
+    if (whitelist.includes(origin as string)) {
       cb(null, true);
     }
   },
@@ -42,11 +42,9 @@ app.use(boomErrorHandler);
 app.use(errorHandler);
 
 // logging
-// app.use(expressDebug);
+app.use(expressDebug);
 
-app.listen(PORT, () => {
-  console.log("Mi port" + PORT);
-});
+app.listen(PORT);
 
 app.on("error", () => {
 });
