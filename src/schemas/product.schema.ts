@@ -7,8 +7,11 @@ const categoryId = Joi.number().integer();
 const image = Joi.string().uri();
 const description = Joi.string().min(30)
 
-const limit = Joi.number().integer()
-const offset = Joi.number().integer()
+const page = Joi.number().integer()
+const size = Joi.number().integer()
+
+const price_min = Joi.number().integer()
+const price_max = Joi.number().integer()
 
 export const createProductSchema = Joi.object({
   name: name.required(),
@@ -31,6 +34,12 @@ export const getProductSchema = Joi.object({
 });
 
 export const queryProductSchema = Joi.object({
-  offset,
-  limit
+  page,
+  size,
+  price,
+  price_min,
+  price_max: price_max.when("price_min", {
+    is: price_min.required(),
+    then: Joi.required()
+  })
 })
