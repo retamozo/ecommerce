@@ -1,76 +1,43 @@
-import { Router } from "express";
+import { Router } from 'express';
 import {
   createCustomerSchema,
   getCustomerSchema,
-  updateCustomerSchema,
-} from "@schemas/customer.schema";
-import { validatorHandler } from "@middlewares/validator.handler";
-import { CustomerService } from "@services/customer.service";
+  updateCustomerSchema
+} from '@schemas/customer.schema';
+import { validatorHandler } from '@middlewares/validator.handler';
+import { FieldSource } from '@custom-types/schemas';
+import {
+  createCustomerController,
+  getAllCustomersController,
+  getCustomerById,
+  patchCustomerControler
+} from '@controllers/customer';
 
 const router = Router();
 
-const validateCreateCustomer = validatorHandler(createCustomerSchema, "body");
+const validateCreateCustomer = validatorHandler(
+  createCustomerSchema,
+  FieldSource.Body
+);
 
-const validateGetCustomer = validatorHandler(getCustomerSchema, "params");
+const validateGetCustomer = validatorHandler(
+  getCustomerSchema,
+  FieldSource.Params
+);
 
 const validatePartialCustomerUpdate = [
-  validatorHandler(getCustomerSchema, "params"),
-  validatorHandler(updateCustomerSchema, "body"),
+  validatorHandler(getCustomerSchema, FieldSource.Params),
+  validatorHandler(updateCustomerSchema, FieldSource.Body)
 ];
 
-const customerService = new CustomerService();
+router.get('/', getAllCustomersController);
 
-router.get("/", async (req, res, next) => {
-  try {
-    const customers = await customerService.find();
-    res.json(customers);
-  } catch (e) {
-    next(e);
-  }
-});
+router.post('/', validateCreateCustomer, createCustomerController);
 
-router.post("/", validateCreateCustomer, async (req, res, next) => {
-  try {
-    const body = req.body;
-    const customer = await customerService.create(body);
-    res.status(201).json({
-      message: "created",
-      customer,
-    });
-  } catch (e) {
-    next(e);
-  }
-});
+router.get('/:id', validateGetCustomer, getCustomerById);
 
-router.get("/:id", validateGetCustomer, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const user = await customerService.findOne(id);
-    res.json(user);
-  } catch (e) {
-    next(e);
-  }
-});
+router.patch('/:id', validatePartialCustomerUpdate, patchCustomerControler);
 
-router.patch("/:id", validatePartialCustomerUpdate, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const partialUpdate = await customerService.update(id, req.body);
-    res.json(partialUpdate);
-  } catch (e) {
-    next(e);
-  }
-});
-
-router.delete("/:id", validateGetCustomer, async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const deletedResponse = await customerService.delete(id);
-    res.json(deletedResponse);
-  } catch (e) {
-    next(e);
-  }
-});
+router.delete('/:id', validateGetCustomer);
 
 export default router;
-
