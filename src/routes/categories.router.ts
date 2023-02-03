@@ -23,8 +23,8 @@ const validatePartialCategoryUpdate = [
 
 router.get("/", async (req, res, next) => {
   try {
-    const cat = await categoryService.find();
-    res.json(cat);
+    const category = await categoryService.find();
+    res.json(category);
   } catch (e) {
     next(e);
   }
